@@ -1,4 +1,6 @@
-" This is standard pathogen and vim setup
+filetype plugin indent on
+syntax on
+au BufRead,BufNewFile *.soar setfiletype soar
 set nocompatible
 set number
 set expandtab
@@ -8,9 +10,16 @@ set autoindent
 set smartindent
 set smarttab
 set scrolloff=5
+
+" auto-complete
+"set ofu=syntaxcomplete#Complete
+set completeopt=longest,menuone
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+    \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+    \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
 call pathogen#infect() 
-syntax on
-filetype plugin indent on
 
 " vimclojure stuff.
 let vimclojure#FuzzyIndent=1
