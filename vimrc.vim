@@ -1,6 +1,7 @@
 filetype plugin indent on
 syntax on
 au BufRead,BufNewFile *.soar setfiletype soar
+au BufRead,BufNewFile *.launch setfiletype xml
 set nocompatible
 set number
 set expandtab
@@ -29,3 +30,13 @@ let vimclojure#DynamicHighlighting=1
 let vimclojure#ParenRainbow=1
 let vimclojure#WantNailgun = 1
 let vimclojure#NailgunClient = $HOME . "/.vim/lib/vimclojure-nailgun-client/ng"
+
+
+function! NumberToggle()
+    if(&relativenumber == 1)
+        set number
+    else
+        set relativenumber
+    endif
+endfunc
+nnoremap <C-n> :call NumberToggle()<cr>
