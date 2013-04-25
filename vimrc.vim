@@ -12,6 +12,12 @@ set smartindent
 set smarttab
 set scrolloff=5
 
+" Highlighting
+set hlsearch
+hi CursorLine cterm=bold
+nnoremap <C-k> :set cursorline!<cr>
+"set cursorline
+
 " auto-complete
 "set ofu=syntaxcomplete#Complete
 set completeopt=longest,menuone
@@ -21,6 +27,7 @@ inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
     \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 call pathogen#infect() 
+
 
 " vimclojure stuff.
 let vimclojure#FuzzyIndent=1
@@ -40,3 +47,8 @@ function! NumberToggle()
     endif
 endfunc
 nnoremap <C-n> :call NumberToggle()<cr>
+nnoremap <C-p> :RainbowParenthesesToggle<cr>
+inoremap {      {}<Left>
+inoremap {<CR>  {<CR>}<Esc>O
+inoremap {{     {
+inoremap {}     {}
