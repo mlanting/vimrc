@@ -12,19 +12,20 @@ set smartindent
 set smarttab
 set scrolloff=5
 
+set t_Co=256
+colorscheme vividchalk
 " Highlighting
 set hlsearch
-hi CursorLine cterm=bold
 nnoremap <C-k> :set cursorline!<cr>
 "set cursorline
 
 " auto-complete
 "set ofu=syntaxcomplete#Complete
-set completeopt=longest,menuone
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-    \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-    \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"set completeopt=longest,menuone
+"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+"    \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+"    \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 call pathogen#infect() 
 
@@ -52,3 +53,4 @@ inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
 inoremap {{     {
 inoremap {}     {}
+
