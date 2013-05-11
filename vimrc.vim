@@ -1,8 +1,11 @@
 filetype plugin indent on
 syntax on
+
 au BufRead,BufNewFile *.soar setfiletype soar
 au BufRead,BufNewFile *.launch setfiletype xml
 au BufRead,BufNewFile *.XML setfiletype xml
+au BufRead,BufNewFile gitconfig setfiletype gitconfig
+
 set nocompatible
 set number
 set expandtab
@@ -40,17 +43,6 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 call pathogen#infect() 
 
-
-" vimclojure stuff.
-let vimclojure#FuzzyIndent=1
-let vimclojure#HighlightBuiltins=1
-let vimclojure#HighlightContrib=1
-let vimclojure#DynamicHighlighting=1
-let vimclojure#ParenRainbow=1
-let vimclojure#WantNailgun = 1
-let vimclojure#NailgunClient = $HOME . "/.vim/lib/vimclojure-nailgun-client/ng"
-
-
 " Toggle line numbers between absolute and relative
 function! NumberToggle()
     if(&relativenumber == 1)
@@ -61,6 +53,7 @@ function! NumberToggle()
 endfunc
 nnoremap <C-n> :call NumberToggle()<cr>
 
+" Plugin toggle bindings
 nnoremap <C-p> :RainbowParenthesesToggle<cr>
 
 " Brace auto-completion
