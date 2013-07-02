@@ -30,7 +30,7 @@ colorscheme vividchalk
 
 " Highlighting
 set hlsearch
-nnoremap <C-k> :set cursorline!<cr>
+nnoremap <leader>_ :set cursorline!<cr>
 
 " auto-complete
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
@@ -64,3 +64,7 @@ inoremap {}     {}
 
 " Eclim util mappings
 nnoremap <silent> <leader>s :SwapWords<cr>
+
+" Remap increment so it isn't blocked by screen commands
+nnoremap <C-k> <C-a>
+nnoremap <C-j> <C-x>
