@@ -56,6 +56,10 @@ nnoremap <C-n> :call NumberToggle()<cr>
 " Plugin toggle bindings
 nnoremap <C-p> :RainbowParenthesesToggle<cr>
 
+" NERDTree configuration
+autocmd vimenter * if !argc() | NERDTree | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
 " Brace auto-completion
 inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
