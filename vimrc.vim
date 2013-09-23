@@ -69,6 +69,9 @@ inoremap {}     {}
 " Eclim util mappings
 nnoremap <silent> <leader>s :SwapWords<cr>
 
+" Fugitive configuration
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
 " Remap increment so it isn't blocked by screen commands
 nnoremap <C-k> <C-a>
 nnoremap <C-j> <C-x>
