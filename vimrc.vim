@@ -41,6 +41,9 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 "inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
 "    \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
+if !exists("g:pathogen_disabled")
+    let g:pathogen_disabled = []
+endif
 call pathogen#infect() 
 
 " Toggle line numbers between absolute and relative
@@ -69,8 +72,10 @@ inoremap {}     {}
 " Eclim util mappings
 nnoremap <silent> <leader>s :SwapWords<cr>
 
-" Fugitive configuration
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+" Fugitive configuration (if fugitive is not disabled)
+if index(g:pathogen_disabled, "vim-fugitive") == -1
+    set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+endif
 
 " Remap increment so it isn't blocked by screen commands
 nnoremap <C-k> <C-a>
