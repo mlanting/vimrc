@@ -57,6 +57,25 @@ endfunc
 nnoremap <C-n> :call NumberToggle()<cr>
 
 " Plugin toggle bindings
+let g:rbpt_colorpairs = [
+    \ ['27',  'RoyalBlue3'],
+    \ ['166', 'SeaGreen3'],
+    \ ['39',  'DarkOrchid3'],
+    \ ['124', 'firebrick3'],
+    \ ['51',  'RoyalBlue3'],
+    \ ['88',  'SeaGreen3'],
+    \ ['230', 'DarkOrchid3'],
+    \ ['22',  'firebrick3'],
+    \ ['227', 'RoyalBlue3'],
+    \ ['31',  'SeaGreen3'],
+    \ ['214', 'DarkOrchid3'],
+    \ ['27',  'firebrick3'],
+    \ ['166', 'RoyalBlue3'],
+    \ ['39',  'SeaGreen3'],
+    \ ['124', 'DarkOrchid3'],
+    \ ['51',  'firebrick3'],
+    \ ]
+
 nnoremap <C-p> :RainbowParenthesesToggle<cr>
 
 " NERDTree configuration
