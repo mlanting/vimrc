@@ -83,10 +83,8 @@ autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " Brace auto-completion
-inoremap {      {}<Left>
 inoremap {<CR>  {<CR>}<Esc>O
-inoremap {{     {
-inoremap {}     {}
+inoremap {}     {}<Left>
 
 " Eclim util mappings
 nnoremap <silent> <leader>s :SwapWords<cr>
