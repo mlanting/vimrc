@@ -94,6 +94,15 @@ if index(g:pathogen_disabled, "vim-fugitive") == -1
     set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 endif
 
+" Splice options
+let g:splice_initial_mode = "grid"
+let g:splice_initial_layout_grid = 1
+
+"Experimental clang-format bindings
+nnoremap <leader>k :pyf /usr/share/vim/addons/syntax/clang-format-3.3.py<CR>
+xnoremap <leader>k :pyf /usr/share/vim/addons/syntax/clang-format-3.3.py<CR>
+inoremap <leader>k <ESC>:pyf /usr/share/vim/addons/syntax/clang-format-3.3.py<CR>i
+
 " Remap increment so it isn't blocked by screen commands
 nnoremap <C-k> <C-a>
 nnoremap <C-j> <C-x>
