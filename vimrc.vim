@@ -76,6 +76,7 @@ let g:rbpt_colorpairs = [
     \ ['51',  'firebrick3'],
     \ ]
 
+au Syntax * RainbowParenthesesLoadBraces
 nnoremap <C-p> :RainbowParenthesesToggle<cr>
 
 " NERDTree configuration
