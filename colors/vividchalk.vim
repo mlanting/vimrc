@@ -124,7 +124,7 @@ highlight Directory     none
 high link Directory     Identifier
 highlight ErrorMsg      guibg=Red ctermbg=DarkRed guifg=NONE ctermfg=NONE
 highlight Search        guifg=NONE ctermfg=NONE gui=none cterm=none
-call s:hibg("Search"    ,"#555555","DarkBlue",81)
+call s:hibg("Search"    ,"#1100AA","DarkBlue",18)
 highlight IncSearch     guifg=White guibg=Black ctermfg=White ctermbg=Black
 highlight MoreMsg       guifg=#00AA00 ctermfg=Green
 highlight LineNr        guifg=#DDEEFF ctermfg=White
@@ -194,3 +194,7 @@ call s:hifg("Special"        ,"#33AA00","DarkGreen",24) " 7
 call s:hifg("Regexp"         ,"#44B4CC","DarkCyan",21) " 74
 call s:hifg("rubyMethod"     ,"#DDE93D","Yellow",77) " 191
 "highlight railsMethod   guifg=#EE1122 ctermfg=1
+
+hi IndentGuidesOdd  ctermbg=234
+hi IndentGuidesEven ctermbg=235
+

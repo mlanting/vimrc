@@ -6,6 +6,8 @@ au BufRead,BufNewFile *.launch setfiletype xml
 au BufRead,BufNewFile *.XML setfiletype xml
 au BufRead,BufNewFile gitconfig setfiletype gitconfig
 
+autocmd FileType soar set commentstring=#\ %s
+
 set nocompatible
 set number
 set expandtab
@@ -16,6 +18,8 @@ set smartindent
 set smarttab
 set scrolloff=5
 set laststatus=2
+set showcmd
+set updatetime=1000
 
 set ignorecase
 set smartcase
@@ -44,7 +48,7 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 if !exists("g:pathogen_disabled")
     let g:pathogen_disabled = []
 endif
-call pathogen#infect() 
+call pathogen#infect()
 
 " Toggle line numbers between absolute and relative
 function! NumberToggle()
@@ -82,6 +86,7 @@ nnoremap <C-p> :RainbowParenthesesToggle<cr>
 " NERDTree configuration
 autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+nnoremap <leader>n :NERDTreeToggle<CR>
 
 " Brace auto-completion
 inoremap {<CR>  {<CR>}<Esc>O
@@ -89,17 +94,37 @@ inoremap {}     {}<Left>
 
 " Eclim util mappings
 nnoremap <silent> <leader>s :SwapWords<cr>
+nnoremap <silent> <leader>b :BuffersToggle<cr>
+let g:EclimBrowser = 'lynx'
+"let g:EclimSignLevel = 'warning'
 
 " Fugitive configuration (if fugitive is not disabled)
-if index(g:pathogen_disabled, "vim-fugitive") == -1
-    set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-endif
+"if index(g:pathogen_disabled, "vim-fugitive") == -1
+"    set statusline=%<%f\ %h%m%r%{tagbar#currenttag('[%s]\ ','')}%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+"endif
+
+" Airline options (statusbar plugin)
+"let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#whitespace#enabled = 0
 
 " Splice options
 let g:splice_initial_mode = "grid"
 let g:splice_initial_layout_grid = 1
 
-"Experimental clang-format bindings
+" Tagbar bindings
+nnoremap <leader>t :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+"let g:tagbar_sort = 0
+"let g:tagbar_show_linenumbers = -1
+
+" indent-guides settings
+let g:indent_guides_auto_colors = 0
+
+" vim-better-whitespace bindings
+nnoremap <leader>w :ToggleWhitespace<CR>
+
+" Experimental clang-format bindings
 nnoremap <leader>k :pyf /usr/share/vim/addons/syntax/clang-format-3.3.py<CR>
 xnoremap <leader>k :pyf /usr/share/vim/addons/syntax/clang-format-3.3.py<CR>
 inoremap <leader>k <ESC>:pyf /usr/share/vim/addons/syntax/clang-format-3.3.py<CR>i

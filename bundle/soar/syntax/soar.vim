@@ -1,68 +1,66 @@
-" Vim syntax file for the Soar production language
-"
-" Language:    Soar
-" Maintainer:  Joseph Xu (jzxu@umich.edu)
-" Last Change: Apr 23,  2007 (pretty much rewrote it, folding now working)
-"              Apr  3,  2007 (using hi link instead of assigning colors)
-"              Sept 07, 2006 (first version)
-
-if exists("b:current_syntax")
-    finish
-endif
-
-syn clear
-
 setlocal iskeyword+=-
-syn keyword soarCommand pushd popd source multi-attributes learn watch indifferent-selection state
+setlocal expandtab
+setlocal spell
 
-syn region soarProd matchgroup=soarProdBraces start=/^\s*[gs]p\s*{/ end=/}/ contains=soarProdStart,soarProdName fold
+" syntax highlighting {
+syn region smemAdd start="^smem --add {" end="^}" transparent fold contains=@ruleFrame,conditionAction,functionCall,comment
 
-syn match  soarProdStart /^\s*sp\s*{/ nextgroup=soarProdName contained skipwhite
+syn region productionRule matchgroup=ruleBraces start="^[gs]p {" end="^}" transparent fold contains=@ruleFrame,conditionAction,functionCall,comment
 
-syn match  soarProdName /[-_\*a-zA-Z0-9]\+\s*$/ nextgroup=soarCond,soarDoc,soarProdFlag contained skipwhite skipnl
+syn keyword flag FIXME TODO ERROR XXX contained
+syn match flag "^    *("
+syn match comment "#.*$" contains=flag,@Spell
 
-syn region soarDoc start=/"""/ end=/"""/ nextgroup=soarCond,SoarProdFlag contained skipwhite skipnl
+syn region commentBlock start="^#.*\n#" end="^#.*\n\(#\)\@!" fold contains=flag,@Spell
 
-syn match  soarProdFlag /:\(o-support\|i-support\|chunk\|default\)/ nextgroup=soarCond contained skipwhite skipnl
+syn match ruleName "{\@<=[[:alnum:]*_-]\+" contained
+syn match ruleType " \@<=:\(o-support\|i-support\|chunk\|default\|monitor\|interrupt\|template\)[!-~]\@!" contained
+syn match ruleDoc '"[^"]*"' contained
+syn match ruleArrow "^-->$" contained
+syn cluster ruleFrame contains=ruleName,ruleType,ruleDoc,ruleArrow
 
-syn region soarCond  matchgroup=soarCondParen start=/-\?(/ end=/)/ nextgroup=soarCond,soarDisjunc,soarArrow contains=soarCondI contained skipwhite skipnl
-syn region soarCondI start=/(/ms=e+1 end=/)/me=s-1 contained
+syn region conditionAction start="(\(state\)\@=" end=")" contains=@conditionActionParts keepend extend transparent
+syn region conditionAction start="(\(<\)\@=" end=")" contains=@conditionActionParts keepend extend transparent
+syn region conditionAction start="(\(\^\)\@=" end=")" contains=@conditionActionParts keepend extend transparent
 
-syn region soarDisjunc start=/-{/ end=/}/ nextgroup=soarCond,soarDisjunc contains=soarCond contained skipwhite skipnl
+syn region bindingTest start="{" end="}" contained contains=symbol,variable,binaryRelation transparent
+syn region negGroup start="-{" end="}" contained contains=@conditionActionParts keepend extend transparent
+syn region attributeTest matchgroup=attribute start="\^{" end="}" contained contains=@roles,binaryRelation transparent
+syn match preferenceRelation "\(+\|-\|=\|>\|<\)" contained
+syn match binaryRelation "\(<\|>\|=\|<>\)" contained
+syn region disjunctionRelation matchgroup=disjunctBookends start="<<" end=">>" transparent contains=symbol,variable
+syn cluster conditionActionParts contains=@roles,conditionAction,negGroup,bindingTest,attributeTest,disjunctionRelation,functionCall,preferenceRelation,comment,stateDeclaration
 
-syn match  soarArrow /-->/ nextgroup=soarAction skipwhite skipnl contained
+syn match attribute "[ (]\@<=-\?\^[^ {)]\+" contained contains=variable,disjunctionRelation
+syn match symbol "[[:alnum:]]\@<![_[:alnum:]][[:alnum:]_-]*" contained
+syn match symbol "|[^|]*|" contained contains=flag,@Spell
+syn match variable "<[[:alnum:]-]\+>" contained
+syn match stateDeclaration "(\@<=state" contained
+syn cluster roles contains=attribute,symbol,variable
 
-syn region soarAction  matchgroup=soarActionParen start=/(/ end=/)/ nextgroup=soarAction contains=soarActionI contained skipwhite skipnl
-syn region soarActionI start=/(/ms=e+1 end=/)/me=s-1 contained
+syn region functionCall start="(\(state\|<\)\@!" end=")" contains=@roles,functionInvocation,functionCall contained keepend extend transparent
+syn match functionInvocation "(\@<=[a-z+*/-]" contains=functionName contained
+syn keyword functionName abs atan2 cmd concat cos crlf div exec float halt ifeq int interrupt make-constant-symbol mod sqrt sin timestamp write contained
+syn match functionName #+\|-\|*\|/# contained
 
-syn match  soarVar     /<[-_a-zA-Z0-9]\+>/      containedin=soarCond,soarAction contained
-syn match  soarAttrib  /-\?\^[-\._a-zA-Z0-9]\+/ containedin=soarCond,soarAction contained
-syn region soarString start=/|/ end=/|/ containedin=soarCond,soarAction contained
+hi def link ruleBraces Statement
+hi def link ruleName Identifier
+hi def link ruleType Statement
+hi def link ruleDoc Comment
+hi def link ruleArrow Statement
+hi def link stateDeclaration Statement
+hi def link attribute Type
+hi def link binaryRelation Statement
+hi def link preferenceRelation Statement
+hi disjunctBookends ctermfg=LightGrey
+hi def link symbol Constant
+hi def link variable PreProc
+hi def link functionName Statement
+hi comment ctermfg=LightGrey
+hi commentBlock ctermfg=LightGrey
+"hi def link comment Comment
+"hi def link commentBlock Comment
+hi def link flag Error
+" }
 
-syn match  soarComment /#.*/ oneline containedin=ALL
-"
-syn region soarMathExp start=/(/ end=/)/ contains=soarMathExp contained containedin=soarCondI,soarActionI
-syn region soarConjTest start=/{/ end=/}/ containedin=soarCondI,soarActionI
-
-"hi soarProdStart  guifg=Red    ctermfg=Red     term=bold    gui=bold
-
-hi soarProdBraces     guifg=Red          ctermfg=Red
-hi soarArrow          guifg=Red          ctermfg=Red
-hi soarCondParen      guifg=Blue         ctermfg=Blue
-hi soarActionParen      guifg=Green         ctermfg=Green
-
-" only for debugging
-hi soarCond ctermbg=Gray
-hi soarAction ctermbg=Blue
-hi soarMathExp ctermbg=Red
-
-let b:current_syntax = "soar"
-
-hi link soarCommand   Keyword
-hi link soarProdName  Function
-hi link soarProdFlag  Keyword
-hi link soarDoc       String
-hi link soarVar       Identifier
-hi link soarAttrib    Type
-hi link soarComment   Comment
-hi link soarString    String
+setlocal foldmethod=syntax
