@@ -55,3 +55,6 @@
 [submodule "bundle/tagbar"]
 	path = bundle/tagbar
 	url = https://github.com/majutsushi/tagbar.git
+[submodule "bundle/sideways.vim"]
+	path = bundle/sideways.vim
+	url = https://github.com/AndrewRadev/sideways.vim
