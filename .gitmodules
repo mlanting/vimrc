@@ -58,3 +58,6 @@
 [submodule "bundle/sideways.vim"]
 	path = bundle/sideways.vim
 	url = https://github.com/AndrewRadev/sideways.vim
+[submodule "bundle/vim-gradle"]
+	path = bundle/vim-gradle
+	url = https://github.com/tfnico/vim-gradle.git
