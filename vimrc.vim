@@ -5,6 +5,7 @@ au BufRead,BufNewFile *.soar setfiletype soar
 au BufRead,BufNewFile *.launch setfiletype xml
 au BufRead,BufNewFile *.XML setfiletype xml
 au BufRead,BufNewFile gitconfig setfiletype gitconfig
+au BufRead,BufNewFile *.em setfiletype cpp
 
 autocmd FileType soar set commentstring=#\ %s
 
@@ -51,14 +52,15 @@ endif
 call pathogen#infect()
 
 " Toggle line numbers between absolute and relative
-function! NumberToggle()
-    if(&relativenumber == 1)
-        set number
-    else
-        set relativenumber
-    endif
-endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
+" function! NumberToggle()
+    " if(&relativenumber == 1)
+        " set number
+    " else
+        " set relativenumber
+    " endif
+" endfunc
+" nnoremap <C-n> :call NumberToggle()<cr>
+nnoremap <C-n> :set relativenumber!<cr>
 
 " Plugin toggle bindings
 let g:rbpt_colorpairs = [
@@ -85,7 +87,9 @@ nnoremap <C-p> :RainbowParenthesesToggle<cr>
 
 " NERDTree configuration
 autocmd vimenter * if !argc() | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" outdated version
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 nnoremap <leader>n :NERDTreeToggle<CR>
 
 " Brace auto-completion
@@ -120,14 +124,18 @@ let g:tagbar_autofocus = 1
 
 " indent-guides settings
 let g:indent_guides_auto_colors = 0
+nnoremap <leader>k :IndentGuidesToggle<CR>
 
 " vim-better-whitespace bindings
 nnoremap <leader>w :ToggleWhitespace<CR>
 
 " Experimental clang-format bindings
-nnoremap <leader>k :pyf /usr/share/vim/addons/syntax/clang-format-3.3.py<CR>
-xnoremap <leader>k :pyf /usr/share/vim/addons/syntax/clang-format-3.3.py<CR>
-inoremap <leader>k <ESC>:pyf /usr/share/vim/addons/syntax/clang-format-3.3.py<CR>i
+" nnoremap <leader>k :pyf /usr/share/vim/addons/syntax/clang-format-3.3.py<CR>
+" xnoremap <leader>k :pyf /usr/share/vim/addons/syntax/clang-format-3.3.py<CR>
+" inoremap <leader>k <ESC>:pyf /usr/share/vim/addons/syntax/clang-format-3.3.py<CR>i
+
+nnoremap <c-h> :SidewaysLeft<cr>
+nnoremap <c-l> :SidewaysRight<cr>
 
 " Remap increment so it isn't blocked by screen commands
 nnoremap <C-k> <C-a>
